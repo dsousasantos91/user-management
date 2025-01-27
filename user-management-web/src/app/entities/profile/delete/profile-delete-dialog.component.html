@@ -1,0 +1,21 @@
+<form name="deleteForm" (ngSubmit)="confirmDelete(profile?.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title">Confirme a exclusão</h4>
+  </div>
+
+  <div class="modal-body">
+    <p id="delete-profile-heading">
+      Tem certeza de que deseja excluir o perfil {{ profile?.name }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <span>Cancelar</span>
+    </button>
+
+    <button id="confirm-delete-profile" type="submit" class="btn btn-danger">
+      <span>Excluir</span>
+    </button>
+  </div>
+</form>

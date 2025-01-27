@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="user as userRef">
+      <div class="p-4 border shadow rounded">
+        <h2 class="text-center mb-4">Usuário</h2>
+        <hr />
+
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <dl class="row mb-4">
+          <dt class="col-sm-4 text-end">Código</dt>
+          <dd class="col-sm-8">{{ userRef.id }}</dd>
+
+          <dt class="col-sm-4 text-end">Nome</dt>
+          <dd class="col-sm-8">{{ userRef.name }}</dd>
+
+          <dt class="col-sm-4 text-end">E-mail</dt>
+          <dd class="col-sm-8">{{ userRef.email }}</dd>
+
+          <dt class="col-sm-4 text-end">Perfil</dt>
+          <dd class="col-sm-8">{{ userRef.profile?.name }}</dd>
+
+          <dt class="col-sm-4 text-end">Criado em</dt>
+          <dd class="col-sm-8">{{ userRef.createdAt | date: 'medium' }}</dd>
+        </dl>
+
+        <hr />
+
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <button type="button" (click)="previousState()" class="btn btn-info">
+            <i class="fa fa-arrow-left"></i> Voltar
+          </button>
+          <button type="button" [routerLink]="['/myuser/edit']" class="btn btn-primary">
+            <i class="fa fa-pencil-alt"></i> Editar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

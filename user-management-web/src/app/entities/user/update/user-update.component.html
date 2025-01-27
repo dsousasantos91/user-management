@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="manager-heading" class="mb-4">
+        Criar ou editar Usuário
+      </h2>
+
+      <div *ngIf="editForm.get('id')?.value !== null" class="mb-3">
+        <label for="field_id" class="form-label">ID</label>
+        <input
+          type="number"
+          id="field_id"
+          class="form-control"
+          name="id"
+          formControlName="id"
+          readonly
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="field_name" class="form-label">Nome</label>
+        <input
+          type="text"
+          id="field_name"
+          class="form-control"
+          name="name"
+          formControlName="name"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="field_email" class="form-label">E-mail</label>
+        <input
+          type="email"
+          id="field_email"
+          class="form-control"
+          name="email"
+          formControlName="email"
+        />
+        <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.dirty || editForm.get('email')?.touched)">
+          <small *ngIf="editForm.get('email')?.errors?.['required']" class="text-danger">
+            O campo é obrigatório.
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="field_profile" class="form-label">Perfil</label>
+        <select
+          id="field_profile"
+          class="form-control"
+          formControlName="profile"
+        >
+          <option *ngFor="let profile of profiles" [value]="profile.id" [selected]="profile.id === editForm.get('profile')?.value">
+            {{ profile.name }}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="editForm.get('id')?.value !== null" class="mb-3">
+        <a [routerLink]="['/users', editForm.get('id')?.value, 'password']" class="btn btn-link">
+          Alterar senha
+        </a>
+      </div>
+
+
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" (click)="previousState()">
+          <i class="fa fa-ban"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="editForm.invalid || isSaving"
+        >
+          <i class="fa fa-save"></i> Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<form name="deleteForm" (ngSubmit)="confirmDelete(user?.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title">Confirme a exclusão</h4>
+  </div>
+
+  <div class="modal-body">
+    <p id="delete-user-heading">
+      Tem certeza de que deseja excluir o usuário {{ user?.name }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <span>Cancelar</span>
+    </button>
+
+    <button id="confirm-delete-user" type="submit" class="btn btn-danger">
+      <span>Excluir</span>
+    </button>
+  </div>
+</form>

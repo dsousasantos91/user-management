@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2 id="page-heading">
+    <span>Usuários</span>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <i class="fa fa-sync" [class.fa-spin]="isLoading"></i>
+        Atualizar lista
+      </button>
+      <button class="btn btn-primary" [routerLink]="['/users/new']">
+        <i class="fa fa-plus"></i> Criar novo Usuário
+      </button>
+    </div>
+  </h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!users || users.length === 0" class="alert alert-warning mt-3">
+    Nenhum Usuário encontrado
+  </div>
+
+  <div *ngIf="users && users.length > 0" class="table-responsive mt-3">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Perfil</th>
+        <th scope="col">Criado em</th>
+        <th scope="col" class="text-end">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; trackBy: trackByUser">
+        <td>
+          <a [routerLink]="['/user', user.id, 'view']">{{ user.id }}</a>
+        </td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.profile?.name }}</td>
+        <td>{{ user.createdAt | date: 'medium' }}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <a [routerLink]="['/users', user.id, 'view']" class="btn btn-info btn-sm">
+              <i class="fa fa-eye"></i> Visualizar
+            </a>
+            <a [routerLink]="['/users', user.id, 'edit']" class="btn btn-primary btn-sm">
+              <i class="fa fa-pencil-alt"></i> Editar
+            </a>
+            <button class="btn btn-danger btn-sm" (click)="delete(user)">
+              <i class="fa fa-times"></i> Excluir
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

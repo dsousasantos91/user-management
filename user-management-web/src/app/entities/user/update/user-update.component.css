@@ -1,0 +1,17 @@
+input.form-control {
+  padding-right: 2.5rem; /* Adiciona espaço para o ícone */
+}
+
+i.bi {
+  color: #6c757d; /* Cor neutra */
+}
+
+i.bi:hover {
+  color: #000; /* Cor mais escura ao passar o mouse */
+}
+
+.position-absolute {
+  height: 100%; /* Mantém o ícone alinhado verticalmente */
+  display: flex;
+  align-items: center;
+}

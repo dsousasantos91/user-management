@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2 id="page-heading">
+    <span>Perfil</span>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <i class="fa fa-sync" [class.fa-spin]="isLoading"></i>
+        Atualizar lista
+      </button>
+      <button class="btn btn-primary" [routerLink]="['/profiles/new']">
+        <i class="fa fa-plus"></i> Criar novo Perfil
+      </button>
+    </div>
+  </h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!profiles || profiles.length === 0" class="alert alert-warning mt-3">
+    Nenhum Perfil encontrado
+  </div>
+
+  <div *ngIf="profiles && profiles.length > 0" class="table-responsive mt-3">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Criado em</th>
+        <th scope="col" class="text-end">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let profile of profiles; trackBy: trackByProfile">
+        <td>
+          <a [routerLink]="['/profile', profile.id, 'view']">{{ profile.id }}</a>
+        </td>
+        <td>{{ profile.name }}</td>
+        <td>{{ profile.createdAt | date: 'medium' }}</td>
+        <td class="text-end">
+          <div class="btn-group">
+            <a [routerLink]="['/profiles', profile.id, 'edit']" class="btn btn-primary btn-sm">
+              <i class="fa fa-pencil-alt"></i> Editar
+            </a>
+            <button class="btn btn-danger btn-sm" (click)="delete(profile)">
+              <i class="fa fa-times"></i> Excluir
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
