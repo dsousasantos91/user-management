@@ -7,7 +7,10 @@ import br.com.dsousasantos91.usermanagement.domain.model.User;
 import br.com.dsousasantos91.usermanagement.mapper.UserMapper;
 import br.com.dsousasantos91.usermanagement.repository.ProfileRepository;
 import br.com.dsousasantos91.usermanagement.repository.UserRepository;
+import br.com.dsousasantos91.usermanagement.utils.PropertyUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +18,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final AuthService authService;
+    @Value("${app.defaultPassword}")
+    private String defaultPassword;
+
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
@@ -33,7 +39,7 @@ public class UserService {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPassword(defaultPassword);
         user.setProfile(profile);
         User userSave = userRepository.save(user);
         return UserMapper.USER_MAPPER.toResponse(userSave);
@@ -46,17 +52,14 @@ public class UserService {
     }
 
     public UserResponse updateUser(Long id, UserRequest request) {
-        return userRepository.findById(id)
-                .map(existent -> {
-                    existent.setName(request.getName());
-                    existent.setEmail(request.getEmail());
-                    Profile profile = profileRepository.findById(request.getProfileId())
-                            .orElseThrow(() -> new RuntimeException("Profile not found"));
-                    existent.setProfile(profile);
-                    userRepository.save(existent);
-                    return UserMapper.USER_MAPPER.toResponse(existent);
-                })
+        log.info("Update user ID [{}]", id);
+        User userFind = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = UserMapper.USER_MAPPER.toEntity(request);
+        PropertyUtils.copyNonNullProperties(user, userFind, "id", "email");
+        User userUp = this.userRepository.save(userFind);
+        log.info("User ID [{}] update success.", userFind.getId());
+        return UserMapper.USER_MAPPER.toResponse(userUp);
     }
 
     public List<UserResponse> allUsers() {

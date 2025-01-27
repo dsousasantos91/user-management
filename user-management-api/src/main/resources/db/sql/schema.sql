@@ -19,13 +19,23 @@ create table profiles
 
 create table users
 (
-    id         bigint auto_increment primary key,
-    email      varchar(255),
-    name       varchar(255),
-    password   varchar(255),
-    profile_id    bigint,
-    created_at timestamp with time zone default current_timestamp
+    id            bigint auto_increment primary key,
+    name          varchar(100) not null,
+    username      varchar(50) not null,
+    document      varchar(255) not null unique,
+    email         varchar(100) not null unique,
+    password      varchar(255) not null,
+    active        boolean not null,
+    address       varchar(255),
+    phone_number  varchar(20),
+    profile_id    bigint not null,
+    created_at    timestamp with time zone default current_timestamp,
+    updated_at    timestamp with time zone default current_timestamp
 );
+
+alter table users
+    add constraint fk_users_profile
+        foreign key (profile_id) references profiles(id);
 
 alter table users
     add constraint uk_5171l57faosmj8myawaucatdw unique (email);

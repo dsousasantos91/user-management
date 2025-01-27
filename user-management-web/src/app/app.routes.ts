@@ -21,19 +21,19 @@ export const routes: Routes = [
     path: 'myuser',
     component: MyuserDetailComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_USER'] },
+    data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
   },
   {
     path: 'myuser/edit',
     component: MyuserUpdateComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_USER'] },
+    data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
   },
   {
     path: 'myuser/password',
     component: MyuserChangePasswordComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_USER'] },
+    data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
   },
   {
     path: 'users',

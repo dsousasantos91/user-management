@@ -1,11 +1,7 @@
 package br.com.dsousasantos91.usermanagement.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import br.com.dsousasantos91.usermanagement.utils.FormatterUtils;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -18,8 +14,23 @@ public class UserResponse {
 
     private Long id;
     private String name;
+    private String username;
+    @Getter(AccessLevel.NONE)
+    private String document;
     private String email;
+    private Boolean active;
+    private String address;
+    @Getter(AccessLevel.NONE)
+    private String phoneNumber;
     private ProfileResponse profile;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public String getDocument() {
+        return FormatterUtils.formatDocument(this.document);
+    }
+
+    public String getPhoneNumber() {
+        return FormatterUtils.formatPhoneNumber(this.phoneNumber);
+    }
 }

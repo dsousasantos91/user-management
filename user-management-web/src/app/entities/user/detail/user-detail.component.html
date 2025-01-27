@@ -16,14 +16,32 @@
           <dt class="col-sm-4 text-end">Nome</dt>
           <dd class="col-sm-8">{{ userRef.name }}</dd>
 
+          <dt class="col-sm-4 text-end">Usuário</dt>
+          <dd class="col-sm-8">{{ userRef.username }}</dd>
+
+          <dt class="col-sm-4 text-end">Documento</dt>
+          <dd class="col-sm-8">{{ userRef.document }}</dd>
+
           <dt class="col-sm-4 text-end">E-mail</dt>
           <dd class="col-sm-8">{{ userRef.email }}</dd>
+
+          <dt class="col-sm-4 text-end">Ativo</dt>
+          <dd class="col-sm-8">{{ userRef.active ? 'Sim' : 'Não' }}</dd>
+
+          <dt class="col-sm-4 text-end">Endereço</dt>
+          <dd class="col-sm-8">{{ userRef.address }}</dd>
+
+          <dt class="col-sm-4 text-end">Telefone</dt>
+          <dd class="col-sm-8">{{ userRef.phoneNumber }}</dd>
 
           <dt class="col-sm-4 text-end">Perfil</dt>
           <dd class="col-sm-8">{{ userRef.profile?.name }}</dd>
 
           <dt class="col-sm-4 text-end">Criado em</dt>
           <dd class="col-sm-8">{{ userRef.createdAt | date: 'medium' }}</dd>
+
+          <dt class="col-sm-4 text-end">Atualizado em</dt>
+          <dd class="col-sm-8">{{ userRef.updatedAt | date: 'medium' }}</dd>
         </dl>
 
         <hr />

@@ -8,6 +8,7 @@ import br.com.dsousasantos91.usermanagement.security.authorities.CanWriteUsers;
 import br.com.dsousasantos91.usermanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Validated
 @RestController
 @RequestMapping("/user-management/users")
 public class UserController {
@@ -41,13 +44,13 @@ public class UserController {
 
     @CanWriteUsers
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest request) {
+    public UserResponse createUser(@Valid @RequestBody UserRequest request) {
         return userService.saveUser(request);
     }
 
     @CanWriteUsers
     @PutMapping("/{id}")
-    public UserResponse updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
+    public UserResponse updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest user) {
         return userService.updateUser(id, user);
     }
 
