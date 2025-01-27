@@ -1,7 +1,9 @@
 package br.com.dsousasantos91.usermanagement.security;
 
+import br.com.dsousasantos91.usermanagement.security.autorizationserver.AuthProperties;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Order;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -26,7 +28,7 @@ public class ResourceServerConfig {
 
 	@Bean
 	@Order(Ordered.LOWEST_PRECEDENCE)
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthProperties authProperties) throws Exception {
 		http
 			.formLogin()
 				.loginPage("/login")
@@ -35,7 +37,7 @@ public class ResourceServerConfig {
 			.authorizeRequests()
 			.antMatchers("/login", "/logout","/css/**", "/js/**", "/images/**").permitAll()
 			.antMatchers("/profiles/**").hasRole("ADMIN")
-			.antMatchers("/users/**", "/profiles/**").hasAnyRole("ADMIN", "CLIENT")
+			.antMatchers("/users/**", "/profiles/**").hasAnyRole("ADMIN", "USER")
 			.anyRequest().authenticated()
 			.and()
 			.cors(Customizer.withDefaults())
@@ -46,7 +48,7 @@ public class ResourceServerConfig {
 
 		http.logout()
 				.logoutUrl("/custom-logout")
-				.logoutSuccessUrl("http://localhost:4200")
+				.logoutSuccessUrl(authProperties.getWebClientRedirect())
 				.deleteCookies("JSESSIONID")
 				.invalidateHttpSession(true)
 				.clearAuthentication(true)

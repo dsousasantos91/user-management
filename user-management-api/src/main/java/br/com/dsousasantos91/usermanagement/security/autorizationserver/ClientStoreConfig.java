@@ -52,7 +52,7 @@ public class ClientStoreConfig {
                 .redirectUri("https://oidcdebugger.com/debug")
                 .redirectUri("https://oauthdebugger.com/debug")
                 .redirectUri("https://oauth.pstmn.io/v1/callback")
-                .redirectUri("http://127.0.0.1:4200/authorized")
+                .redirectUri(authProperties.getWebClientRedirect() + "/authorized")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope("myuser:read")

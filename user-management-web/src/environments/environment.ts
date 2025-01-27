@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  authorize_uri: 'http://127.0.0.1:8082/oauth2/authorize?',
+  authorize_uri: 'http://127.0.0.1:8080/oauth2/authorize?',
   client_id : 'web-client',
   redirect_uri: 'http://127.0.0.1:4200/authorized',
   scope: 'openid profile myuser:read myuser:write',
@@ -13,10 +13,10 @@ export const environment = {
   code_challenge_method: 'S256',
   code_challenge: 'umtL1a131V9I1CznkyVqN2Ob5Ck7Muzj-hYpx6ctNeE',
   code_verifier: 'aWbckKwPCvSroTaJ01d1CqPLTd9UK34OQuYqMPRO9de',
-  token_url: 'http://127.0.0.1:8082/oauth2/token',
+  token_url: 'http://127.0.0.1:8080/oauth2/token',
   grant_type: 'authorization_code',
-  resource_url: 'http://localhost:8082/user-management/',
-  logout_url: 'http://localhost:8082/logout'
+  resource_url: 'http://localhost:8080/user-management/',
+  logout_url: 'http://localhost:8080/logout'
 };
 
 /*

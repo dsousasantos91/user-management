@@ -12,7 +12,7 @@
     <h2 class="text-center">Tem certeza de que deseja sair?</h2>
     <form class="form-signin" method="post" th:action="@{/custom-logout}">
         <button class="btn btn-lg btn-outline-primary btn-block border-0" type="submit">SIM</button>
-        <a th:href="@{http://127.0.0.1:4200}" style="text-decoration: none">
+        <a th:href="${angularAppUrl}" style="text-decoration: none">
             <button class="btn btn-lg btn-outline-secondary btn-block border-0" type="button">NÃO</button>
         </a>
     </form>

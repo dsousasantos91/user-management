@@ -16,6 +16,9 @@ import java.util.Map;
 public class AuthProperties {
 
     @NotBlank
+    private String webClientRedirect;
+
+    @NotBlank
     private String providerUri;
 
     @NotNull

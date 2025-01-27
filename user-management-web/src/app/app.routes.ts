@@ -20,12 +20,14 @@ export const routes: Routes = [
   {
     path: 'myuser',
     component: MyuserDetailComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_USER'] },
   },
   {
     path: 'myuser/edit',
     component: MyuserUpdateComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] },
+    data: { roles: ['ROLE_USER'] },
   },
   {
     path: 'myuser/password',
